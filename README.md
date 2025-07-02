@@ -1,1 +1,2 @@
-# CPP_DSA_Practice
+# Cpp_Practice
+This repository is intended for cpp learning and practice
