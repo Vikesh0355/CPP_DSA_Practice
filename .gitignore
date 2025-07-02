@@ -1,41 +1,99 @@
-# Prerequisites
-*.d
+##################################
+# Core C/C++ Build Artifacts     #
+##################################
 
-# Compiled Object files
-*.slo
-*.lo
+# Object files & dependencies
 *.o
 *.obj
+*.d
+*.dwo
+*.slo
+*.lo
 
-# Precompiled Headers
-*.gch
-*.pch
-
-# Linker files
-*.ilk
-
-# Debugger Files
-*.pdb
-
-# Compiled Dynamic libraries
+# Static and shared libraries
+*.a
+*.la
+*.lai
+*.lib
 *.so
 *.dylib
 *.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
 
 # Executables
 *.exe
 *.out
 *.app
 
-# debug information files
-*.dwo
+# Precompiled headers
+*.gch
+*.pch
+
+# Linker and debug files
+*.ilk
+*.pdb
+
+# Fortran modules (just in case)
+*.mod
+*.smod
+
+##################################
+# Project Structure Preferences  #
+##################################
+
+# Build directories
+build/
+bin/
+dist/
+cmake-build-*/
+CMakeFiles/
+
+# CMake-generated files
+CMakeCache.txt
+cmake_install.cmake
+install_manifest.txt
+Makefile
+
+# Prevent Git from ignoring folders by default
+# But allow source files and .keep markers
+src/**
+!src/**/
+!src/**/*.cpp
+!src/**/*.c
+!src/**/*.h
+!src/**/*.hpp
+!src/**/.keep
+
+include/**
+!include/**/
+!include/**/*.hpp
+!include/**/*.h
+!include/**/.keep
+
+##################################
+# Editor & OS-Specific Clutter   #
+##################################
+
+# VS Code / JetBrains
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
+
+# Swap and backup files
+*~
+*.swp
+*.bak
+*.tmp
+*.log
+
+##################################
+# Git Utilities                  #
+##################################
+
+# Original files before merge or rebase
+*.orig
+*.rej
+
+# Optional: ignore this file itself
+# .gitignore
