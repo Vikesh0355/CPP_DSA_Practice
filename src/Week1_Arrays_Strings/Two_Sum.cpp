@@ -20,6 +20,22 @@ public:
         }
         return {};
     }
+    /*Other solution*/
+    vector<int> twoSum2(vector<int>& nums, int target)
+    {
+        vector<int> result;
+        for (int i = 0; i < nums.size() - 1; ++i) 
+        {
+            if (nums[i] + nums[i + 1] == target) 
+            {
+                result.push_back(i);
+                result.push_back(i + 1);
+                break;
+            }
+        }
+
+        return result;
+    }
 };
 
 int main()
