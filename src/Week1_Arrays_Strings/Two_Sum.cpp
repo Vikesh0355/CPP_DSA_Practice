@@ -24,18 +24,18 @@ public:
     vector<int> twoSum2(vector<int>& nums, int target)
     {
         vector<int> result;
-        for (int i = 0; i < nums.size() - 1; ++i) 
-        {
-            if (nums[i] + nums[i + 1] == target) 
-            {
-                result.push_back(i);
-                result.push_back(i + 1);
-                break;
+        for (int i = 0; i < nums.size(); ++i) {
+            for (int j = i + 1; j < nums.size(); ++j) {
+                if (nums[i] + nums[j] == target) {
+                    result.push_back(i);
+                    result.push_back(j);
+                    return result; // return early after finding first match
+                }
             }
         }
-
-        return result;
+        return result; // empty if no match
     }
+
 };
 
 int main()
