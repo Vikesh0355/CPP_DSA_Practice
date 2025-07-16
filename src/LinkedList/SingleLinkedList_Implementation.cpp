@@ -13,13 +13,13 @@ struct node
 struct node* newnode = NULL;
 struct node* temp = NULL;
 struct node* head = NULL;
- 
+
 void create_SingleLinkedList(void)
 {
     int choice = 1;
     while(choice)
     {
-        newnode = (struct node*)malloc(sizeof(struct node));
+        newnode = new struct node;
         if(newnode==NULL)
         {
             cout<<" memory creation failed\n"<<endl;
@@ -42,8 +42,8 @@ void create_SingleLinkedList(void)
 
 }
 
- void display()
- {
+void display()
+{
     temp = head;
     while(temp != NULL)
     {
@@ -51,11 +51,11 @@ void create_SingleLinkedList(void)
         temp = temp->next;
     }
     cout<<endl;
- }
+}
  
- void insert_atbeginning(void)
- {
-    newnode = (struct node*)malloc(sizeof(struct node));
+void insert_atbeginning(void)
+{
+    newnode = new struct node;
     if(newnode == NULL)
     {
         exit(1);
@@ -66,11 +66,11 @@ void create_SingleLinkedList(void)
     head = newnode;
     head->next = temp;
     display();
- }
+}
  
- void insert_atEnd(void)
- {
-    newnode = (struct node*)malloc(sizeof(struct node));
+void insert_atEnd(void)
+{
+    newnode = new struct node;
     if(newnode == NULL)
     {
         exit(1);
@@ -84,16 +84,16 @@ void create_SingleLinkedList(void)
     while(temp->next!=NULL)
     {
             
-            temp = temp->next; // moved the temp till last node;
+        temp = temp->next; // moved the temp till last node;
     }
     temp->next = newnode; // now assigned temp->next to newnode
     display();
- }
+}
  
- void insert_atPosition()
- {
+void insert_atPosition()
+{
     int position, i = 1;
-    newnode = (struct node*)malloc(sizeof(struct node));
+    newnode = new struct node;
     if(newnode == NULL)
     {
          exit(1);
@@ -104,7 +104,7 @@ void create_SingleLinkedList(void)
     cout<<"Enter the data for new position\n";
     cin>>newnode->data;
     newnode->next = NULL;
-        
+     
     temp = head; // assign temp to head for traversal to last
     while ( i < position-1)
     {
@@ -114,14 +114,72 @@ void create_SingleLinkedList(void)
     newnode->next = temp->next; // in newnode->next assign nextnode
     temp->next = newnode; // link the given postion node
     display();
- }
+}
  
- int main()
- {
+void DeleteFromBeginning(void)
+{  cout<<"Delete from beginning is called\n";
+    if(head!=NULL)
+    {
+      temp = head;
+      head = head->next;
+      delete(temp);  
+    }
+    else
+    {
+        /*Do nothing*/
+    }
+    cout<<"first node is deleted\n";
+    display();
+     
+}
+
+void DeleteFromEnd(void)
+{  
+    cout<<"Delete from End is called\n";
+    struct node *prevnode;
+    temp = head;
+    while(temp->next!=NULL)
+    {
+        prevnode = temp; // store the 2nd last node in prevnode
+        temp = temp->next; //iterate the temp to next node utntill it reachs to last
+    }
+    prevnode->next = NULL; //To avoid danling ptr since last node is going to be  deleted
+    delete(temp);
+    cout<<"last  node is deleted\n";
+    display();
+     
+}
+
+void DeleteFromPostion()
+{
+    struct node *nextnode; // to store tthe address of node which need to be deleted i.e pos node
+    int pos, i =1;
+    temp = head;
+    
+     cout<<"Enter the position which you want to delete\n";
+     cin>>pos;
+     
+    while(i<pos-1)
+    {
+        temp = temp->next; // find the node which need to be deleted
+        i++;
+    }
+    nextnode = temp->next; // address of node which need to be deleted
+    temp->next = nextnode->next; //Here temp is holding pos-1 node address, which next part will be updated with pos i.e nextnode->next address
+    delete(nextnode);  
+    display();
+     
+}
+
+
+
+int main()
+{
     create_SingleLinkedList();
     display();
     insert_atbeginning();
     insert_atEnd();
     insert_atPosition();
+    DeleteFromBeginning();
     return 0;
- }
+}
