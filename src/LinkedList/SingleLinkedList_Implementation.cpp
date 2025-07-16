@@ -171,6 +171,37 @@ void DeleteFromPostion()
      
 }
 
+void ReverseLinkedList() {
+    // Declare three pointers: prevnode, currentnode, and nextnode
+    struct node *prevnode, *currentnode, *nextnode;
+
+    // Initially, the previous node is NULL (since the new head will point to NULL at the end)
+    prevnode = NULL;
+    
+    // The current node is set to the head of the linked list
+    currentnode = nextnode = head;
+
+    // Iterate through the list until the next node is NULL (end of the list)
+    while (nextnode != NULL) {
+        // Store the next node temporarily
+        nextnode = currentnode->next;
+
+        // Reverse the 'next' pointer of the current node to point to the previous node
+        currentnode->next = prevnode;
+
+        // Move the previous node pointer forward to the current node
+        prevnode = currentnode;
+
+        // Move the current node pointer forward to the next node
+        currentnode = nextnode;
+    }
+
+    // Once the loop finishes, prevnode will be pointing to the new head of the reversed list
+    head = prevnode;
+
+    // Display the reversed linked list (you need a display function to print the list)
+    display();
+}
 
 
 int main()
