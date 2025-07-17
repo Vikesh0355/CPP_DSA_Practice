@@ -161,7 +161,7 @@ void DeleteFromPostion()
      
     while(i<pos-1)
     {
-        temp = temp->next; // find the node which need to be deleted
+        temp = temp->next; 
         i++;
     }
     nextnode = temp->next; // address of node which need to be deleted
@@ -212,5 +212,8 @@ int main()
     insert_atEnd();
     insert_atPosition();
     DeleteFromBeginning();
+    DeleteFromEnd();
+    DeleteFromPostion();
+    ReverseLinkedList();
     return 0;
 }
