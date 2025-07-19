@@ -148,10 +148,149 @@ void Insert_atPosition(void)
 
     display();
 }
+void ReverseLinkedList() 
+{
+    node* currentnode = head;
+    node* prevnode = nullptr;
+    node* nextnode = nullptr;
+
+    // Iterate through the list until the next node is NULL (end of the list)
+    while (currentnode != NULL) 
+    {
+        // Store the next node temporarily
+        nextnode = currentnode->next;
+
+        // Reverse the 'next' pointer of the current node to point to the previous node
+        currentnode->next = currentnode->prev;
+
+        // Move the previous node pointer forward to the current node
+        currentnode->prev = nextnode;
+        
+        // Move prev to current node
+        prevnode = currentnode;
+        
+        // Move the current node pointer forward to the next node
+        currentnode = nextnode;
+ 
+    }
+
+    // Once the loop finishes, prevnode will be pointing to the new head of the reversed list
+    head = prevnode;
+
+    // Display the reversed linked list (you need a display function to print the list)
+    display();
+}
+
+void delete_FromBeginning(void)
+{
+    cout<<"delete from beginning is called\n";
+    
+    node* ToDelete = nullptr;
+    node* nextnode = nullptr;
+    
+    nextnode = head->next; // move nextnode one position forward to head node
+    nextnode->prev = NULL; // now assigned nextnode->prev with NULL. since first node from list will be deleted
+    delete(ToDelete);
+    head = nextnode;
+    display();
+    
+}
+
+void delete_FromEnd(void)
+{
+    cout << "delete from End is called\n";
+
+    // If the list is empty, nothing to delete
+    if (head == NULL) {
+        cout << "List is empty\n";
+        return;
+    }
+
+    node* ToDelete = nullptr;
+    node* currentnode = head;
+
+    // If there is only one node
+    if (currentnode->next == NULL) {
+        ToDelete = currentnode;  // Only one node to delete
+        head = NULL;              // Set head to NULL since the list will be empty now
+        delete ToDelete;          // Delete the only node
+        display();
+        return;
+    }
+
+    // Traverse to the last node
+    while (currentnode->next != NULL) {
+        currentnode = currentnode->next;
+    }
+
+    // currentnode is now the last node
+    ToDelete = currentnode;         // ToDelete will be the last node
+    currentnode->prev->next = NULL; // Set second-to-last node's next to NULL
+    delete ToDelete;                // Delete the last node
+
+    display();
+}
+
+void delete_FromPosition(void)
+{
+    cout << "delete from position is called\n";
+    
+    node* ToDelete = nullptr;
+    node* currentnode = head;
+    int pos, i = 1;
+    
+    cout << "Enter the position which you want to delete\n";
+    cin >> pos;
+    
+    // Check for an invalid position (either less than 1 or greater than list length)
+    int length = getLength();
+    if (pos < 1 || pos > length) {
+        cout << "Invalid position!\n";
+        return;
+    }
+    
+    // If deleting the first node (head)
+    if (pos == 1) {
+      delete_atBeginning();          
+    }
+    else {
+        // Traverse the list to find the node at the given position
+        while (i < pos) {
+            currentnode = currentnode->next;
+            i++;
+        }
+
+        // currentnode now points to the node at position 'pos'
+        ToDelete = currentnode;
+
+        // If deleting the last node
+        if (currentnode->next == nullptr) {
+            delete_FromEnd();
+        }
+        else {
+            // Update the pointers for the node before and after the one to delete
+            currentnode->prev->next = currentnode->next;
+            currentnode->next->prev = currentnode->prev;
+            delete ToDelete;  // Delete the node
+            display();  // Display the updated list
+        }
+
+        
+    }
+    
+    
+}
 
 int main()
 {
     Create_DoublyLinkedList();  // Create the list
     display();  // Display the list
+    Insert_atBeginning();
+    Insert_atEnd();
+    Insert_atPosition();
+    ReverseLinkedList();
+    delete_FromBeginning();
+    delete_FromEnd();
+    delete_FromPosition();
     return 0;
 }
