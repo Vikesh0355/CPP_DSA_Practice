@@ -4,10 +4,14 @@ public:
         stack<char> stk;  // Stack to store opening brackets
         
         for (auto c : s) {
-            if (c == '(' || c == '{' || c == '[') {
+            if (c == '(' || c == '{' || c == '[')
+            {
                 stk.push(c);  // Push opening brackets onto the stack
-            } else {
-                if (stk.empty()) {
+            } 
+            else 
+            {
+                if (stk.empty())
+                {
                     return false;  // Closing bracket without a matching opening bracket
                 }
                 
