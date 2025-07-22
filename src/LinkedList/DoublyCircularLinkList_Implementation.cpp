@@ -165,6 +165,101 @@ void insert_atPosition()
     }
       
 }
+void delete_fromBeginning()
+{
+    struct node* temp = head;
+    cout << "Delete from beginning is called\n";
+
+    // If there's only one node in the list
+    if (head == tail) {
+        delete temp;  // Delete the only node
+        head = tail = nullptr;  // List is now empty
+    } 
+    else {
+        tail->next = temp->next;  // Update tail's next to point to the head (because it's circular)
+        head = temp->next;        // Move head to the next node
+        head->prev = nullptr;     // Set the new head's prev to nullptr
+        delete temp;              // Delete the old head node
+    }
+
+    display();  // Display the updated list
+}
+
+
+void delete_fromEnd()
+{
+    cout<<"Delete from End is called\n";
+    
+    // If the list is empty, nothing to delete
+    if (head == nullptr)
+    {
+        cout << "List is empty\n";
+        return;
+    }
+    
+   struct node* ToDelete = nullptr;
+   struct node* currentnode = head;
+   
+    // If there is only one node
+    if (currentnode == tail) {
+        ToDelete = head;  // Only one node to delete
+        head = tail =  nullptr;              // Set head to NULL since the list will be empty now
+        delete ToDelete;          // Delete the only node
+        display();
+        return;
+    }
+    
+    // Traverse to the last node
+    while (currentnode->next != head) 
+    {
+        currentnode = currentnode->next;
+    }
+    // currentnode is now the last node
+    ToDelete = currentnode;         // ToDelete will be the last node
+    currentnode->prev->next = head; // connect secondlast node->next with head 
+    tail = currentnode->prev; // update the tail pointer with second last node
+    delete ToDelete;                // Delete the last node
+
+    display();
+    
+}
+
+void delete_fromPosition()
+{
+    int pos = 0, length = 0, i = 0;
+    
+    struct node* ToPosition = head;
+    
+    cout<<"enter the node postion which you want to delete?\n";
+    cin>>pos;
+    length = getLength_DoublyCLL();
+    if(pos<=0 || pos>length)
+    {
+        cout<<"invalidlength\n";
+    }
+    else if(pos == 1)
+    {
+       delete_fromBeginning();
+    }
+    else if(pos == length)
+    {
+     
+       delete_fromEnd(); 
+    }
+    else
+    {
+      while(i<pos)
+      {
+        ToPosition = ToPosition->next;
+        i++;
+      }
+      ToPosition->prev->next = ToPosition->next;// assign pos-1 node next part with pos+1 node address
+      ToPosition->next->prev = ToPosition->prev;// assign pos+1 node prev part with pos-1 node address 
+      delete(ToPosition);
+      display();
+
+    }
+}
 
 int main()
 {
@@ -172,6 +267,8 @@ int main()
     insert_atBeginning();
     insert_atEnd();
     insert_atPosition();
-    
+    delete_fromBeginning();
+    delete_fromEnd(); 
+    delete_fromPosition();
     return 0;
 }
