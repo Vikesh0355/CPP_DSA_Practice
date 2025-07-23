@@ -36,7 +36,7 @@ void create_SingleLinkedList(void)
             temp->next = newnode;
             temp = newnode;
         }
-        cout<<"do you want to continue: press 1 to conitnue : 0 for exit\n"<<endl;
+        cout<<"do you want to continue: press 1 to conitnue : 0 for exit: ";
         cin>>choice;
     }
 
@@ -203,6 +203,47 @@ void ReverseLinkedList() {
     display();
 }
 
+void ReverseBetween()
+{
+    int firstpos = 0;
+    int secondpos = 0;
+
+    cout << "Enter the first position of nodes which you want to reverse:\n";
+    cin >> firstpos;
+    cout << "Enter the second position of nodes which you want to reverse:\n";
+    cin >> secondpos;
+    
+    // Dummy node to handle edge cases like reversing from head
+    struct node* dummy = new struct node;
+    dummy->next = head;
+    
+    // `prev` will be the node before the `firstpos` node
+    struct node* prev = dummy;
+    
+    for(int i = 1; i<firstpos; ++i)
+    {
+        prev = prev->next;
+    }
+    
+    node* start = prev->next;
+    node* then = start->next;
+    
+    // Reverse the nodes between `firstpos` and `secondpos`
+    for (int i = 0; i < secondpos - firstpos; ++i)
+    {
+        start->next = then->next;  // Link `start` to the node after `then`
+        then->next = prev->next;   // Move `then` to the front of the sublist
+        prev->next = then;         // Attach `then` to the previous node
+        then = start->next;        // Move `then` to the next node
+    }
+    
+    head =  dummy->next;
+    delete(dummy);
+    display();
+    
+    
+
+}
 
 int main()
 {
@@ -215,5 +256,6 @@ int main()
     DeleteFromEnd();
     DeleteFromPostion();
     ReverseLinkedList();
+    ReverseBetween();
     return 0;
 }
