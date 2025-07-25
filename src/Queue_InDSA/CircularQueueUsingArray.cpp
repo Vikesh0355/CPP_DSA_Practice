@@ -13,7 +13,7 @@ void Enqueue(int x)
     /* if rear +1  == front */
     if((rear+1)%N == front)
     {
-        cout<<"Queue is empty\n";
+        cout<<"Queue is full\n";
     }
     else if(front == -1 && rear == -1) // check if queue is empty
     {
