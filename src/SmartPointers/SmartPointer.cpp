@@ -7,13 +7,14 @@ std::unique_ptr: A smart pointer that owns a dynamically allocated object exclus
 
 std::shared_ptr: A smart pointer that can be shared among multiple owners. The object is destroyed only when the last shared_ptr goes out of scope.
 
-std::weak_ptr: A smart pointer that provides a non-owning "weak" reference to an object managed by shared_ptr. It helps prevent circular references in shared_ptr.
+std::weak_ptr: A smart pointer that is used to break circular references in shared_ptrs. It does not contribute to the reference count and does not prevent memory from being freed.
 
 /*Example unique_ptr*/
 #include <iostream>
 #include <memory>  // For std::unique_ptr
 
-int main() {
+int main()
+{
     // Create a unique pointer to an integer
     std::unique_ptr<int> ptr = std::make_unique<int>(10);
 
@@ -22,7 +23,8 @@ int main() {
     // Unique pointers cannot be copied, but can be moved
     std::unique_ptr<int> ptr2 = std::move(ptr);  // Move ownership
     // ptr is now nullptr
-    if (!ptr) {
+    if (!ptr) 
+    {
         std::cout << "ptr is now nullptr." << std::endl;
     }
 
@@ -34,7 +36,8 @@ int main() {
 #include <iostream>
 #include <memory>  // For std::shared_ptr
 
-int main() {
+int main()
+{
     // Create a shared pointer
     std::shared_ptr<int> ptr1 = std::make_shared<int>(100);
     
@@ -51,33 +54,43 @@ int main() {
 
 /*std::weak_ptr*/
 #include <iostream>
-#include <memory>  // For std::shared_ptr, std::weak_ptr
+#include <memory>  // For weak_ptr and shared_ptr
 
-int main()
- {
-    std::shared_ptr<int> sharedPtr = std::make_shared<int>(42);
-
-    // Create a weak pointer to the same object
-    std::weak_ptr<int> weakPtr = sharedPtr;
-
-    // Convert weak_ptr to shared_ptr
-    std::shared_ptr<int> lockedPtr = weakPtr.lock();
-    if (lockedPtr) {
-        std::cout << "Weak pointer is locked: " << *lockedPtr << std::endl;
-    } else {
-        std::cout << "Weak pointer is expired." << std::endl;
+void weakPointerExample() 
+{
+    std::shared_ptr<int> sharedPtr = std::make_shared<int>(200);
+    std::weak_ptr<int> weakPtr = sharedPtr;  // Create a weak_ptr from shared_ptr
+    
+    std::cout << "Use count before: " << sharedPtr.use_count() << std::endl;
+    
+    // Lock weak_ptr to obtain a shared_ptr
+    if (auto lockedPtr = weakPtr.lock()) 
+    {
+        std::cout << "Value from weak_ptr: " << *lockedPtr << std::endl;
+    } 
+    else
+    {
+        std::cout << "Resource no longer available" << std::endl;
     }
 
-    // Release shared_ptr, making the object go out of scope
-    sharedPtr.reset();
-
-    // Try to lock weak_ptr again
-    lockedPtr = weakPtr.lock();
-    if (lockedPtr) {
-        std::cout << "Weak pointer is locked: " << *lockedPtr << std::endl;
-    } else {
-        std::cout << "Weak pointer is expired." << std::endl;
+    sharedPtr.reset();  // Reset the shared_ptr, which destroys the resource
+    
+    std::cout << "Use count after: " << sharedPtr.use_count() << std::endl;
+    
+    // Trying to lock again after resource is destroyed
+    if (auto lockedPtr = weakPtr.lock())
+    {
+        std::cout << "Value from weak_ptr: " << *lockedPtr << std::endl;
+    } 
+    else 
+    {
+        std::cout << "Resource no longer available" << std::endl;  // Will be printed
     }
+}
 
+int main() 
+{
+    weakPointerExample();
     return 0;
 }
+
