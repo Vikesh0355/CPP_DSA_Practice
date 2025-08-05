@@ -3,7 +3,7 @@ using namespace std;
 
 //preorder algorithm (Data,Left,Right)
 //inorder algorithm (Left, Data, Right)
-//preorder algorithm (Data,Left,Right)
+//postorder algorithm (Left,Right, Data)
 
 struct Node 
 {
