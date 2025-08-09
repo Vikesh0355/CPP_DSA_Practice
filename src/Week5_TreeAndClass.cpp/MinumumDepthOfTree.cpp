@@ -17,3 +17,4 @@ int minDepth(TreeNode* root) {
     // If both children exist
     return 1 + std::min(minDepth(root->left), minDepth(root->right));
 }
+
