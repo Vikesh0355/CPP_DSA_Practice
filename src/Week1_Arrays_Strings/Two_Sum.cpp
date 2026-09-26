@@ -38,6 +38,30 @@ public:
 
 };
 
+/*Other with iterators*/
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target)
+    {
+        vector<int> result;
+
+        for(vector<int>::iterator it1 = nums.begin(); it1!= nums.end(); it1++)
+        {
+            
+            for(vector<int>::iterator it2 = (it1 +1); it2!= nums.end(); it2++)
+            {
+                if(*it1 + *it2 == target)
+                {
+                    result.push_back(distance(nums.begin(), it1));
+                    result.push_back(distance(nums.begin(), it2));
+                    return result;
+                }
+            }
+        }
+        return result;
+    }
+};
+
 int main()
 {
     vector<int> nums = {2, 7, 11, 15};

@@ -65,7 +65,8 @@ int main()
     list<int> beginners; //rating 1-5
     list<int> pros;//rating 6-10
 
-    for (list<int>::iterator it = allPlayers.begin(); it != allPlayers.end(); it++) {
+    for (list<int>::iterator it = allPlayers.begin(); it != allPlayers.end(); it++) 
+    {
         int rating = *it;
         if (rating >= 1 && rating <= 5)
             insertPlayerIntoOrderedList(rating, beginners);
