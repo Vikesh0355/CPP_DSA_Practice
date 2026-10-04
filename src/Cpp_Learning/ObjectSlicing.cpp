@@ -1,0 +1,30 @@
+/*Object Slicing: When a derived class object is assigned to a base class object in C++, the derived class object’s extra attributes are sliced off (not considered) to generate the base class object; and this whole process is termed object slicing.*/
+// C++ program to demonstrate what is object slicing
+#include<iostream> 
+using namespace std; 
+class Base {
+public:
+    int x;
+    Base(int val) : x(val) {}
+    void display() {
+        cout << "Base class x = " << x << endl;
+    }
+};
+
+class Derived : public Base {
+public:
+    int y;
+    Derived(int val1, int val2) : Base(val1), y(val2) {}
+    virtual void display() {
+        cout << "Derived class x = " << x << ", y = " << y << endl;
+    }
+};
+
+int main()
+{
+    Derived d(10, 20);
+    Base b = d; // Object slicing occurs here
+    b.display(); // Only Base class part is displayed
+
+    return 0;
+}
