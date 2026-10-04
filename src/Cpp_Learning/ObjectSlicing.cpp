@@ -28,3 +28,36 @@ int main()
 
     return 0;
 }
+
+/*To avoid object slicing, you can use pointers or references to the base class instead of creating a copy of the derived class object*/
+
+#include<iostream> 
+using namespace std; 
+
+class Base {
+public:
+    int x;
+    Base(int val):x(val){};
+  
+    virtual void display() {
+        cout << "Base class x = " << x << endl;
+    }
+};
+
+class Derived : public Base {
+public:
+    int y;
+    Derived(int val1, int val2) : Base(val1), y(val2) {}
+    virtual void display()override {
+        cout << "Derived class x = " << x << ", y = " << y << endl;
+    }
+};
+
+int main()
+{
+    Derived d(10, 20);
+    Base* b = &d; 
+    b->display(); 
+
+    return 0;
+}
