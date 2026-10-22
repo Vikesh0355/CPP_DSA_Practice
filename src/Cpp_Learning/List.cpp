@@ -47,3 +47,11 @@ cout<<cars.size();
 
 // Check if list is Empty
 cout<<cars.empty();
+
+list<string> cars = {"Volvo", "BMW", "Ford", "Mazda"};
+
+// Add an element at the beginning
+cars.push_front("Tesla");
+
+// Add an element at the end
+cars.push_back("VW");
