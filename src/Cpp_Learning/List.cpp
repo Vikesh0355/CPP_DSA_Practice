@@ -2,7 +2,7 @@
 /* A list is similiar to a vector in that it can store multiple elements of the same type and dynmically grow in size.*/
 /* However, two major diffrences between lists and vector are:*/
 /* 1. You can add and remove elements from both the beginning and at the end of a list, while vector are generally optimized for adding and removing at the end*/
-/* 2. Unlike vector, a list doesn#t support random access, meaning you can#t directly jump to a specific index , or access element by an index numbers*/
+/* 2. Unlike vector, a list doesn't support random access, meaning you can't directly jump to a specific index , or access element by an index numbers*/
 
 /* create a list: To create a list, use the list keyword and specify the type of values it should store within angle bracketand then the nam eof the list*/
 /*Example:  list<string> cars*/
